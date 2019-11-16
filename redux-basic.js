@@ -10,20 +10,17 @@ const initalState = {
 
 //Reducer
 const rootReducer = (state = initalState, action) => {
-  if(action.type === 'SET_COUNTER')  {
-    return {
-      ...state, counter: state.counter + 1
-      }
-  }
-  if(action.type === 'ADD_COUNTER') {
-   return {
-    ...state, counter: state.counter + action.value
-    }
-  }
-  if(action.type === 'SET_TRUE') return { ...state, status: action.status }
 
-  if(action.type === 'SET_FALSE') return { ...state, status: action.status }
-  return state
+  switch(action.type) {
+    case 'SET_COUNTER':
+      return { ...state, counter: state.counter + 1 }
+    case 'ADD_COUNTER':
+      return { ...state, counter: state.counter + action.value }
+    case 'SET_STATUS':
+      return { ...state, status: action.status }
+    default:
+      return state
+  }
 }
 
 //Store
@@ -37,7 +34,7 @@ store.subscribe(() => {
 //DispatchReducer
 store.dispatch({type: 'SET_COUNTER'})
 store.dispatch({type: 'ADD_COUNTER', value: 5})
-store.dispatch({type: 'SET_TRUE', status: true})
-store.dispatch({type: 'SET_FALSE', status: false})
+store.dispatch({type: 'SET_STATUS', status: true})
+store.dispatch({type: 'SET_STATUS', status: false})
 store.dispatch({type: 'ADD_COUNTER', value: 30})
 
